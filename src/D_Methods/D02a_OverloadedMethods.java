@@ -43,10 +43,10 @@ public class D02a_OverloadedMethods {
 
 /*
 
-1) Two D_Methods.methods can have same name and different parameters,
-   but two D_Methods.methods cannot have same name and same parameters.
+1) Two methods can have same name and different parameters,
+   but two methods cannot have same name and same parameters.
 -  Java gives an error of method is already defined in the specific file name.
 
-2) No two D_Methods.methods can have same method signature
+2) No two methods can have same method signature
 
  */

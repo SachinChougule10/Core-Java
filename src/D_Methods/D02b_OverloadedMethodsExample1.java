@@ -33,6 +33,6 @@ public class D02b_OverloadedMethodsExample1 {
 }
 
 // This is a form of compile-time polymorphism.
-// if there are two are more D_Methods.methods with same name, we will end up using the method which match the number of parameters
+// if there are two or more methods with same name, we will end up using the method which match the number of parameters
 
 // “The method that has the same number and type of parameters as the arguments passed in the method call will be used.”
