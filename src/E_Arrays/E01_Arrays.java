@@ -1,3 +1,24 @@
+/*
+ * This program demonstrates the basics of arrays in Java.
+ *
+ * What this file covers:
+ * - Declaring and initializing arrays
+ * - Accessing and modifying array elements using index
+ * - Finding the length of an array
+ * - Iterating through arrays using:
+ *     • simple for loop
+ *     • enhanced for-each loop
+ * - Using utility methods from Arrays class:
+ *     • sort()  → to sort elements alphabetically
+ *     • fill()  → to fill an array with a single value
+ *
+ * Key points:
+ * - Arrays store multiple values of the same data type
+ * - Arrays are reference data types
+ * - Accessing an invalid index results in ArrayIndexOutOfBoundsException
+ */
+
+
 package E_Arrays;
 
 import java.util.Arrays;
