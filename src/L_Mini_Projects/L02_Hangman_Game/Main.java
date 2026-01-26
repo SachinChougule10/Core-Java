@@ -1,0 +1,175 @@
+/*
+    This program is a simple Hangman game where the secret word is hardcoded ("pizza").
+    The player guesses letters, and the game updates:
+    - ASCII-art Hangman as wrong guesses increase
+    - A dynamic word state using underscores and revealed letters
+    - Win/Loss conditions based on correct guesses or 6 wrong attempts
+
+    Demonstrates:
+    - Loops, conditionals, ArrayList usage
+    - Character matching with charAt() and indexOf()
+    - ASCII art using switch expression
+*/
+
+
+
+package L_Mini_Projects.L02_Hangman_Game;
+import java.util.Scanner;
+import java.util.ArrayList;
+
+public class Main {
+    public static void main(String[] args){
+
+        String word = "pizza";
+
+        Scanner scanner = new Scanner(System.in);
+
+        ArrayList<Character> wordState = new ArrayList<>();
+        // at the beginning wordstate will contain a bunch of underscores, we are going to fill them in one letter at a time by guessing
+
+        int wrongGuesses = 0;
+        // we will keep a track of wrong guesses
+
+        //within the ArrayList of wordState, we are going to add an underscore for every letter within our word
+        // we will create a for loop that will cycle once for every letter in our word
+
+        for(int i = 0; i < word.length(); i++){
+            wordState.add('_');
+            // wordState is an ArrayList currently holding underscores, we will replace them with character if we get the correct guess
+        }
+
+        System.out.println("*************************");
+        System.out.println("Welcome to JAVA HANGMAN !");
+        System.out.println("*************************");
+
+        System.out.println();
+
+        // we will continue playing this game until we get 6 wrong guesses
+        while(wrongGuesses < 6){
+
+            System.out.println(getHangmanArt(wrongGuesses));                                    // display hangman art
+            System.out.print("Word: ");
+
+            for(char c : wordState){
+                System.out.print(c + " ");
+                // when we guess each letter, we will be flipping these underscores to its matching character, if they do match
+            }
+
+            System.out.println();
+
+            // we will ask user to guess a letter
+            System.out.print("Guess a letter: ");
+
+            char guess = scanner.next().toLowerCase().charAt(0);
+            // using next() user input is going to be a string not a character, we can convert it to a character using charAt() method.
+            // we have to pass in an index, as we are accepting only one character we will pass 0
+            // we are telling Java, with the string the user types give me the first character and convert it to char
+
+
+            // we are going to check if our guess matches any letters in the word
+            // if the guessed character is present in the word we will get index value as 0 or <0
+            // for eg :- if we guess 'z' and the word is 'pizza' we will get index as 2, hence 'z' is present in word
+            if(word.indexOf(guess) >= 0){
+                System.out.println("Correct guess!");
+
+                // if we get the correct guess, we are going to change our word state to reflect it, that's one less letter user has to guess
+                // we are going to cycle through the length of the word, using a for loop
+                for(int i = 0; i < word.length(); i++){
+
+                    // we have to see where there is a match exactly which index within our word, we will use an if statement for this
+                    if(word.charAt(i) == guess){
+                        // 'i' is going to increment for each cycle. Suppose our word is 'pizza' and i = 0, so we ask Java to give character at index 0.
+                        // if our guess is 'p', we will get a match and at index 0 in our ArrayList of wordState we will reflect 'p'
+                        wordState.set(i, guess);
+                    }
+                }
+
+                if(!wordState.contains('_')){
+                    System.out.println(getHangmanArt(wrongGuesses));
+                    System.out.println("YOU WIN!");
+                    System.out.println("The word was: "+ word);
+                    break;
+                }
+            }
+            else{
+                wrongGuesses++;                             // keep track of wrong guesses
+                System.out.println("Wrong guess!");
+            }
+        }
+
+        if(wrongGuesses >= 6){
+            System.out.println(getHangmanArt(wrongGuesses));
+            System.out.println("GAME OVER!");
+            System.out.println("The word was: " + word);                        // show our word
+        }
+
+        scanner.close();
+    }
+
+    // for hangman, we are going to display some ascii art
+    // outside of Main method we are going to add a static method that will be in charge of returning ascii art, based on the wrong guesses we have
+    // we will pass no.of wrong guesses as a parameter and depending on the number of wrong guesses, we will return a certain image represented as a String
+
+    static String getHangmanArt(int wrongGuesses){
+
+        return switch(wrongGuesses){
+            // wrongGuesses - number between 0-6
+            // we will need a case for each wrong guess case1-case6
+            // depending on the no.of wrong guesses we will display one of a few images
+
+            case 0 -> """
+                    
+                    
+                    
+                    """;
+            case 1 -> """
+                       o
+                    
+                    
+                    """;
+            case 2 -> """
+                       o
+                       |
+                    
+                    """;
+            case 3 -> """
+                       o
+                      /|
+                    
+                    """;
+            case 4 -> """
+                       o
+                      /|\\
+                    
+                    """;
+            case 5 -> """
+                       o
+                      /|\\
+                      /
+                    """;
+            case 6 -> """
+                       o
+                      /|\\
+                      / \\
+                    """;
+            default -> "";
+
+        };
+
+
+        // for 0 wrong guesses, using the case 0 we will display nothing
+        // for 1 wrong guess, using the case 1 we will display man's head
+        // for 2 wrong guesses, using the case 2 we will display man's body represented by a vertical bar
+        // for 3 wrong guesses, using the case 3 we will display man's left arm represented by a forward slash
+        // for 4 wrong guesses, using the case 4 we will display man's right arm represented by a backward slash
+        // (in Java, single backward slash(\) acts as an escape sequence, hence we will use two backward slashes (\\))
+        // for 5 wrong guesses, using the case 5 we will display man's left leg represented by a forward slash
+        // for 6 wrong guesses, using the case 6 we will display man's right leg represented by  two backward slashes
+
+
+
+
+
+
+    }
+}
